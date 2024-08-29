@@ -1,0 +1,57 @@
+﻿@model List<Contact>
+
+<h2 class="text-center mb-5">List of Contacts</h2>
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Contacts" asp-action="Create">New Contact</a>
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>ImageFile</th>
+                <th>Create Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <td>@contact.Id</td>
+                    <td>@contact.Name</td>
+                    <td>@contact.Email</td>
+                    <td>@contact.PhoneNumber</td>
+                    <td>
+                        @if (contact.ImageFileName != null)
+                        {
+                            <img src="/images/@contact.ImageFileName" width="100" />
+                        }
+                    </td>
+                    <td>@contact.CreatedAt.ToString("f")</td>
+                    <td style="white-space:nowrap">
+                        <a class="btn btn-primary btn-sm" asp-controller="Contacts" asp-action="Edit"
+                           asp-route-id="@contact.Id">Edit</a>
+
+                        <a class="btn btn-primary btn-sm" asp-controller="Contacts" asp-action="Delete"
+                           asp-route-id="@contact.Id" onclick="return confirm('Are You Sure')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No contacts available.</p>
+}
