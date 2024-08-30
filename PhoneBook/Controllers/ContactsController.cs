@@ -39,7 +39,7 @@ namespace PhoneBook.Controllers
                 return View(contactDto);
             }
 
-            string newFileName = DateTime.Now.ToString("Mq");
+            string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff");
             newFileName += Path.GetExtension(contactDto.ImageFile!.FileName);
             string imageFullPath = environment.WebRootPath + "/images/" + newFileName;
             using (var stream = System.IO.File.Create(imageFullPath))
@@ -75,7 +75,7 @@ namespace PhoneBook.Controllers
 
             ViewData["ContactId"] = contact.Id;
             ViewData["ImageFileName"] = contact.ImageFileName;
-            ViewData["CreatedAt"] = contact.CreatedAt.ToString("d");
+            ViewData["CreatedAt"] = contact.CreatedAt.ToString("M");
             return View(contactDto);
         }
         [HttpPost]
@@ -90,13 +90,13 @@ namespace PhoneBook.Controllers
             {
                 ViewData["ContactId"] = contact.Id;
                 ViewData["ImageFileName"] = contact.ImageFileName;
-                ViewData["CreatedAt"] = contact.CreatedAt.ToString("d");
+                ViewData["CreatedAt"] = contact.CreatedAt.ToString("M");
                 return View(contactDto);
             }
             string newFileName = contact.ImageFileName;
             if (contact.ImageFileName != null)
             {
-                newFileName = DateTime.Now.ToString("Mq");
+                newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff");
                 newFileName += Path.GetExtension(contactDto.ImageFile!.FileName);
                 string imageFullPath = environment.WebRootPath + "/images/" + newFileName;
                 using (var stream = System.IO.File.Create(imageFullPath))
